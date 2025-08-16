@@ -11,8 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.48.4",
     "dotenv": "^17.2.1",
     "express": "^4.17.1",
-    "mongo": "^0.1.0"
+    "mongo": "^0.1.0",
+    "mongoose": "^8.17.1"
   }
 }

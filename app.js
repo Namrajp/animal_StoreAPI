@@ -1,34 +1,14 @@
 const express = require("express");
 const app = express();
 
+const connectDB = require("./db/connect");
+require('@dotenvx/dotenvx').config()
+// const url = process.env.MONGO_URI || "mongodb://localhost:27017";
 
-require('dotenv').config();
-
-app.use(express.static('./public'));
+// app.use(express.static('./public'));
 app.use(express.json());
 
-const mongo = require("mongodb").MongoClient;
-let db, collection;
 
-const url = process.env.MONGO_URI || "mongodb://localhost:27017";
-const client = mongo.connect(
-    url,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    },
-    (err, client) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      //...
-      console.log("Connected to db successfully.");
-      
-      db = client.db("kennel");
-      collection = db.collection("animals");
-    }
-  );
 
 app.get("/names", (req, res) => {
   collection.find().toArray((err, users) => {
@@ -56,9 +36,12 @@ app.get("/animal", (req, res) => {
   res.send("hello animal world");
 });
 const port = process.env.PORT || 5000;
+const url = "mongodb://localhost:27017";
 
 const start = async () => {
   try {
+    await connectDB(url);
+
     app.listen(port, () => {
   console.log("Server is listening on port 5000");
 })} catch (error) {
